@@ -8,22 +8,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClientService {
     @Autowired
     private ClientRepository clientRepository;
-
-    private PasswordEncoder passwordEncoder = new PasswordEncoder() {
-        @Override
-        public String encode(CharSequence rawPassword) {
-            return null;
-        }
-        @Override
-        public boolean matches(CharSequence rawPassword, String encodedPassword) {
-            return false;
-        }
-    };
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Cacheable(value = "client")
     public List<Client> getAllClients() {
@@ -32,5 +24,8 @@ public class ClientService {
     public Client saveClient(Client client) {
         client.setPassword(passwordEncoder.encode(client.getPassword()));
         return clientRepository.save(client);
+    }
+    public Optional<Client> findByUsername(String username) {
+        return clientRepository.findByUsername(username);
     }
 }

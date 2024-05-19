@@ -48,6 +48,8 @@ public class Owner {
     private String phoneNumber;
     @Column(name = "password")
     private String password;
+    @Column(name = "username")
+    private String username;
     @Enumerated(EnumType.STRING)
     private Role role = Role.OWNER;
     @OneToMany(mappedBy = "owner")

@@ -30,6 +30,8 @@ public class Admin {
     private String phoneNumber;
     @Column(name = "password")
     private String password;
+    @Column(name = "username")
+    private String username;
     @Enumerated(EnumType.STRING)
     private Role role = Role.ADMIN;
 }
