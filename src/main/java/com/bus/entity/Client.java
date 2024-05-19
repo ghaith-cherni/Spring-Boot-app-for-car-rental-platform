@@ -43,6 +43,10 @@ public class Client {
     private String  authenticationMethod;
     @Column(name = "status")
     private String  status;
+    @Column(name = "password")
+    private String password;
+    @Enumerated(EnumType.STRING)
+    private Role role = Role.CLIENT;
     @OneToMany(mappedBy = "client")
     private List<Reservation> reservations;
 }
