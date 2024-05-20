@@ -31,10 +31,10 @@ public class SecurityConfig {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
-    @Bean(name = "myCustomUserDetailsService")
-    public UserDetailsService customUserDetailsService() {
-        return new CustomUserDetailsService();
-    }
+//    @Bean
+//    public UserDetailsService customUserDetailsService() {
+//        return new CustomUserDetailsService();
+//    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
