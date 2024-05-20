@@ -1,10 +1,12 @@
 package com.bus.entity;
- 
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.time.ZonedDateTime;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,19 +17,19 @@ public class Bus {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "numPlate")
+    @Column(name = "num_plate")
     private String numPlate;
-    @Column(name = "numSeats")
+    @Column(name = "num_seats")
     private int numSeats;
-    @Column(name = "createdAt")
-    private ZonedDateTime  createdAt;
-    @Column(name = "busType")
-    private String  busType;
-    @Column(name = "busCondition")
-    private String  busCondition;
-    @Column(name = "priceOneDay")
-    private int  priceOneDay;
-    @Column(name = "isValid")
+    @Column(name = "created_at")
+    private ZonedDateTime createdAt;
+    @Column(name = "bus_type")
+    private String busType;
+    @Column(name = "bus_condition")
+    private String busCondition;
+    @Column(name = "price_one_day")
+    private int priceOneDay;
+    @Column(name = "is_valid")
     private boolean isValid;
     @ManyToOne
     @JoinColumn(name = "fk_owner_id")

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.ZonedDateTime;
 import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,35 +17,35 @@ public class Owner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "firstName")
+    @Column(name = "first_name")
     private String firstName;
-    @Column(name = "lastName")
+    @Column(name = "last_name")
     private String lastName;
     @Column(name = "category")
-    private String  category;
-    @Column(name = "profilePicture")
-    private String  profilePicture;
+    private String category;
+    @Column(name = "profile_picture")
+    private String profilePicture;
     @Column(name = "city")
-    private String  city;
+    private String city;
     @Column(name = "status")
-    private String  status;
-    @Column(name = "createdAt")
+    private String status;
+    @Column(name = "created_at")
     private ZonedDateTime createdAt;
     @Column(name = "verified")
     private Boolean verified;
-    @Column(name = "authenticationMethod")
-    private String  authenticationMethod;
+    @Column(name = "authentication_method")
+    private String authenticationMethod;
     @Column(name = "birthdate")
-    private ZonedDateTime  birthdate;
-    @Column(name = "companyName")
-    private String  companyName;
+    private ZonedDateTime birthdate;
+    @Column(name = "company_name")
+    private String companyName;
     @Column(name = "gender")
-    private String  gender;
+    private String gender;
     @Column(name = "email")
     private String email;
     @Column(name = "newsletter")
     private Boolean newsletter;
-    @Column(name = "phoneNumber")
+    @Column(name = "phone_number")
     private String phoneNumber;
     @Column(name = "password")
     private String password;
