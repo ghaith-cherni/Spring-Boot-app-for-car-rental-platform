@@ -27,6 +27,8 @@ public class Bus {
     private String  busCondition;
     @Column(name = "priceOneDay")
     private int  priceOneDay;
+    @Column(name = "isValid")
+    private boolean isValid;
     @ManyToOne
     @JoinColumn(name = "fk_owner_id")
     private Owner owner;

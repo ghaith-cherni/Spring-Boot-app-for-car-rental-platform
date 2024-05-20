@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -48,5 +49,11 @@ public class SecurityConfig extends WebSecurityConfigurer {
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
+    }
+    @Bean
+    public UserDetailsService customUserDetailsService() {
+        // Implement  custom UserDetailsService
+        // Load user details from  data source
+        return new CustomUserDetailsService();
     }
 }

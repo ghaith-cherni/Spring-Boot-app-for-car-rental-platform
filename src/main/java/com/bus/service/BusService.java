@@ -7,6 +7,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BusService {
@@ -15,5 +16,9 @@ public class BusService {
     @Cacheable(value = "bus")
     public List<Bus> getAllBuses(){
         return busRepository.findAll();
+    }
+    public Optional<List<Bus>> getNonValidBuses(){
+          Optional<List<Bus>> nonValidBuses = busRepository.findAllByIsValidIsFalse();
+        return nonValidBuses ;
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/locaBus/buses")
@@ -20,5 +21,9 @@ public class BusController {
         List<Bus> allBuses = busService.getAllBuses();
         return ResponseEntity.ok(allBuses);
     }
-
+    @GetMapping (value = "/public/nonValidBuses")
+    public ResponseEntity<Optional<List<Bus>>> getNonValidBuses(){
+        Optional<List<Bus>> nonValidBuses = busService.getNonValidBuses();
+        return ResponseEntity.ok(nonValidBuses);
+    }
 }

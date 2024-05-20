@@ -14,15 +14,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import java.util.stream.Collectors;
 
-public class AuthController {
+
     @RestController
     @RequestMapping("/auth")
     public class AuthController {
@@ -57,15 +59,16 @@ public class AuthController {
         }
 
         @PostMapping("/login")
-        public ResponseEntity<?> authenticateUser(@RequestBody AuthRequest authRequest) {
-            Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())
+        public ResponseEntity<?> authenticateUser(@RequestBody AuthRequest authRequest) {            //accepts login credentials (username and password)
+            Authentication authentication = authenticationManager.authenticate(    //authenticate the user based on the provided credentials using authenticationManager
+                    new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())     // creates a UsernamePasswordAuthenticationToken with the provided username and password, and passes it to the authenticate method of the AuthenticationManager
             );
             SecurityContextHolder.getContext().setAuthentication(authentication);
-            String token = jwtTokenProvider.createToken(authRequest.getUsername(), authentication.getAuthorities().stream()
-                    .map(GrantedAuthority::getAuthority).collect(Collectors.toList()));
-            return ResponseEntity.ok(new AuthResponse(token));
+            String token = jwtTokenProvider.createToken(                                    //If authentication is successful, we generate a JWT token using the JwtTokenProvider:
+                    authRequest.getUsername(), authentication.getAuthorities().stream()
+                    .map(GrantedAuthority::getAuthority).collect(Collectors.toList()));   //If the authentication is successful, the AuthenticationManager returns an Authentication object. The controller then uses the JwtTokenProvider to generate a JWT token for the authenticated user. This token includes the user's username and roles.
+            return ResponseEntity.ok(new AuthResponse(token));                            //The controller returns a ResponseEntity containing the JWT token to the client
         }
-    }
+
 
 }
