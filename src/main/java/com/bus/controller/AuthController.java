@@ -3,12 +3,11 @@ package com.bus.controller;
 import com.bus.JwtTokenProvider;
 import com.bus.entity.Admin;
 import com.bus.entity.Client;
-import com.bus.entity.Owner;
+import com.bus.entity.Driver;
 import com.bus.request.AuthRequest;
-import com.bus.response.AuthResponse;
 import com.bus.service.AdminService;
 import com.bus.service.ClientService;
-import com.bus.service.OwnerService;
+import com.bus.service.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,7 +39,7 @@ import java.util.stream.Collectors;
         @Autowired
         private ClientService clientService;
         @Autowired
-        private OwnerService ownerService;
+        private DriverService driverService;
         @Autowired
         private AdminService adminService;
 
@@ -50,9 +49,9 @@ import java.util.stream.Collectors;
             return ResponseEntity.ok("Client registered successfully");
         }
 
-        @PostMapping("/sign-up/owner")
-        public ResponseEntity<?> registerOwner(@RequestBody Owner owner) {
-            ownerService.saveOwner(owner);
+        @PostMapping("/sign-up/driver")
+        public ResponseEntity<?> registerOwner(@RequestBody Driver owner) {
+            driverService.saveOwner(owner);
             return ResponseEntity.ok("Owner registered successfully");
         }
 

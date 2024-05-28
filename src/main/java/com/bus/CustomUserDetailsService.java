@@ -4,7 +4,7 @@ package com.bus;
 import com.bus.entity.Role;
 import com.bus.repository.AdminRepository;
 import com.bus.repository.ClientRepository;
-import com.bus.repository.OwnerRepository;
+import com.bus.repository.DriverRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.GrantedAuthority;
@@ -23,7 +23,7 @@ import java.util.List;
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private OwnerRepository ownerRepository;
+    private DriverRepository driverRepository;
 
     @Autowired
     private ClientRepository clientRepository;
@@ -35,7 +35,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserDetails userDetails;
 
-        userDetails = ownerRepository.findByUsername(username)
+        userDetails = driverRepository.findByUsername(username)
                 .map(owner -> new org.springframework.security.core.userdetails.User(owner.getUsername(), owner.getPassword(),
                         getAuthorities(owner.getRole())))
                 .orElse(null);

@@ -1,7 +1,7 @@
 package com.bus.controller;
 
-import com.bus.entity.Owner;
-import com.bus.service.OwnerService;
+import com.bus.entity.Driver;
+import com.bus.service.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,13 +12,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/locaBus/owners")
-public class OwnerController {
+public class DriverController {
     @Autowired
-    public OwnerService ownerService;
+    public DriverService driverService;
 
     @GetMapping(value = "/public/allOwners")
-    public ResponseEntity<List<Owner>> getAllOwners() {
-        List<Owner> allOwners = ownerService.getAllOwners();
+    public ResponseEntity<List<Driver>> getAllOwners() {
+        List<Driver> allOwners = driverService.getAllOwners();
         return ResponseEntity.ok().body(allOwners);
     }
 }

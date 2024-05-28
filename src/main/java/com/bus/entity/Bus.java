@@ -33,5 +33,5 @@ public class Bus {
     private boolean isValid;
     @ManyToOne
     @JoinColumn(name = "fk_owner_id")
-    private Owner owner;
+    private Driver owner;
 }

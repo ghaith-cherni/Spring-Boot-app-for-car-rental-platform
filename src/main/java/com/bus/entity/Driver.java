@@ -12,8 +12,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "owner")
-public class Owner {
+@Table(name = "driver")
+public class Driver {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,8 +21,6 @@ public class Owner {
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
-    @Column(name = "category")
-    private String category;
     @Column(name = "profile_picture")
     private String profilePicture;
     @Column(name = "city")
@@ -37,14 +35,10 @@ public class Owner {
     private String authenticationMethod;
     @Column(name = "birthdate")
     private ZonedDateTime birthdate;
-    @Column(name = "company_name")
-    private String companyName;
     @Column(name = "gender")
     private String gender;
     @Column(name = "email")
     private String email;
-    @Column(name = "newsletter")
-    private Boolean newsletter;
     @Column(name = "phone_number")
     private String phoneNumber;
     @Column(name = "password")
@@ -52,7 +46,7 @@ public class Owner {
     @Column(name = "username")
     private String username;
     @Enumerated(EnumType.STRING)
-    private Role role = Role.OWNER;
+    private Role role = Role.DRIVER;
     @OneToMany(mappedBy = "owner")
     private List<Bus> buses;
 }
