@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -47,6 +48,6 @@ public class Driver {
     private String username;
     @Enumerated(EnumType.STRING)
     private Role role = Role.DRIVER;
-    @OneToMany(mappedBy = "owner")
-    private List<Bus> buses;
+    @OneToMany(mappedBy = "driver", cascade = CascadeType.ALL)
+    private List<Reservation> reservations = new ArrayList<>();
 }

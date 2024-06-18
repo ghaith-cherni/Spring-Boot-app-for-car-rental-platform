@@ -36,8 +36,8 @@ public class CustomUserDetailsService implements UserDetailsService {
         UserDetails userDetails;
 
         userDetails = driverRepository.findByUsername(username)
-                .map(owner -> new org.springframework.security.core.userdetails.User(owner.getUsername(), owner.getPassword(),
-                        getAuthorities(owner.getRole())))
+                .map(driver -> new org.springframework.security.core.userdetails.User(driver.getUsername(), driver.getPassword(),
+                        getAuthorities(driver.getRole())))
                 .orElse(null);
 
         if (userDetails == null) {

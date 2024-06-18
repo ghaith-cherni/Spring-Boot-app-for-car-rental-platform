@@ -1,16 +1,15 @@
 package com.bus.controller;
 
+import com.bus.entity.Client;
 import com.bus.entity.Reservation;
 import com.bus.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
-@RestController("/locaBus/buses")
+@CrossOrigin(origins = "http://localhost:4200")
+@RestController("/locaBus/reservations")
 public class ReservationsController {
     @Autowired
     public ReservationService reservationService;
@@ -20,7 +19,7 @@ public class ReservationsController {
         return ResponseEntity.ok(allReservations);
     }
     @PostMapping
-    public ResponseEntity<String> makeReservation() {
+    public ResponseEntity<String> makeReservation(@RequestBody Reservation reservation) {
         // Logic to make a reservation
         return ResponseEntity.ok().body("Reservation made");
     }

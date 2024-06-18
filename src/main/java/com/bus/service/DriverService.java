@@ -15,12 +15,12 @@ public class DriverService {
     private DriverRepository driverRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
-    @Cacheable(value = "owner")
-    public List<Driver> getAllOwners() {
+    @Cacheable(value = "driver")
+    public List<Driver> getAllDrivers() {
         return driverRepository.findAll();
     }
 
-    public Driver saveOwner(Driver driver) {
+    public Driver saveDriver(Driver driver) {
         driver.setPassword(passwordEncoder.encode(driver.getPassword()));
         return driverRepository.save(driver);
     }

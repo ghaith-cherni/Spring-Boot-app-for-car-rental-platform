@@ -32,6 +32,9 @@ public class Reservation {
     private String paymentMethod;
     @Column(name = "payment_status")
     private String paymentStatus;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "driver_id", nullable = false)
+    private Driver driver;
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;

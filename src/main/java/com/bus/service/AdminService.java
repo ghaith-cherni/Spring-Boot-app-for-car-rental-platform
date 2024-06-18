@@ -1,7 +1,9 @@
 package com.bus.service;
 
 import com.bus.entity.Admin;
+import com.bus.entity.Role;
 import com.bus.repository.AdminRepository;
+import com.bus.request.SignupAdminRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,13 +17,32 @@ public class AdminService {
     private AdminRepository adminRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    // private Admin admin4signup;
+    public  Admin toAdmin(SignupAdminRequest request) {
+        Admin admin4signup = new Admin();
+        admin4signup.setFirstName(request.getFirstName());
+        admin4signup.setLastName(request.getLastName());
+        admin4signup.setProfilePicture(request.getProfilePicture());
+        admin4signup.setEmail(request.getEmail());
+        admin4signup.setPhoneNumber(request.getPhoneNumber());
+        admin4signup.setPassword(request.getPassword());
+        admin4signup.setUsername(request.getUsername());
+       if (request.getRole()=="ADMIN"){admin4signup.setRole(Role.ADMIN);}
 
-
-    public Admin saveAdmin(Admin admin) {
-        admin.setPassword(passwordEncoder.encode(admin.getPassword()));
-        return adminRepository.save(admin);
+        return admin4signup;
     }
+
     public Optional<Admin> findByUsername(String username) {
         return adminRepository.findByUsername(username);
     }
+
+    public Admin saveAdmin(SignupAdminRequest signupAdminRequest) {
+        signupAdminRequest.setPassword(passwordEncoder.encode(signupAdminRequest.getPassword()));
+        Admin admin = toAdmin(signupAdminRequest);
+        String adminUsername = admin.getUsername();
+        if (findByUsername(adminUsername).isPresent()){
+            throw new IllegalArgumentException("Compte existant ");
+        }return  adminRepository.save(admin);
+    }
+
 }
