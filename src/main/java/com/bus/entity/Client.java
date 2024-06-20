@@ -47,6 +47,10 @@ public class Client {
     private String password;
     @Column(name = "username")
     private String username;
+    @Column(name = "category")
+    private String category;
+    @Column(name = "matricule_fiscale")
+    private String matricule_fiscale;
     @Enumerated(EnumType.STRING)
     private Role role = Role.CLIENT;
     @OneToMany(mappedBy = "client")

@@ -64,13 +64,20 @@ public class AuthController {
     public ResponseEntity<?> registerAdmin(@RequestBody SignupAdminRequest admin) {
         try {
             adminService.saveAdmin(admin);
-            return ResponseEntity.ok("Admin registered successfully");
-        }catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Admin registered successfully");
+            return ResponseEntity.ok(response);
+        } catch (IllegalArgumentException e) {
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
         }
     }
+
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@RequestBody AuthRequest authRequest) {            //accepts login credentials (username and password)

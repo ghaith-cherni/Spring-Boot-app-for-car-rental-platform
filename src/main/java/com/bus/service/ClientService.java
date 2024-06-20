@@ -19,7 +19,9 @@ public class ClientService {
 
     @Cacheable(value = "client")
     public List<Client> getAllClients() {
+        System.out.println(clientRepository.findAll());
         return clientRepository.findAll();
+
     }
     public Client saveClient(Client client) {
         client.setPassword(passwordEncoder.encode(client.getPassword()));

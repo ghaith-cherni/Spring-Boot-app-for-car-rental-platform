@@ -33,13 +33,32 @@ public class Reservation {
     @Column(name = "payment_status")
     private String paymentStatus;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "driver_id", nullable = false)
+    @JoinColumn(name = "driver_id")
     private Driver driver;
     @ManyToOne
-    @JoinColumn(name = "client_id")
+    @JoinColumn(name = "client_id", nullable = false)
     private Client client;
     @ManyToOne
     @JoinColumn(name = "bus_id")
     private Bus bus;
-
+    @Column(name = "cin")
+    private String CIN;
+    @Column(name = "bus_type")
+    private String bus_type;
+    @Column(name = "departure_place")
+    private String departure_place;
+    @Column(name = "destination")
+    private String destination;
+    @Column(name = "companion_firstname")
+    private String companion_firstname;
+    @Column(name = "companion_lastname")
+    private String companion_lastname;
+    @Column(name = "companion_phone")
+    private String companion_phone;
+    @Column(name = "trip_utility")
+    private String trip_utility;
+    @Column(name = "client_category")
+    private String client_category;
+    @Column(name = "verified")
+    private boolean verified;
 }
