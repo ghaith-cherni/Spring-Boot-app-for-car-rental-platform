@@ -26,10 +26,12 @@ public class ReservationsController {
 
     @PostMapping("/addReservations")
     public ResponseEntity<String> makeReservation(@RequestBody ReservationRequest reservation) {
-        System.out.println("Received reservation request: " + reservation);
+      //  System.out.println("Received reservation request: " + reservation);
         reservationService.addReservation(reservation);
         return ResponseEntity.ok().body("Reservation made");
     }
+
+
 
 //    @GetMapping("/Reservation{Rid}") // get reservation by id for admin
 //    public ResponseEntity<Reservation> getReservation4admin(@RequestBody String Rid) {

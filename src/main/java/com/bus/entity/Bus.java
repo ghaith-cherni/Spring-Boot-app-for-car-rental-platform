@@ -31,7 +31,5 @@ public class Bus {
     private int priceOneDay;
     @Column(name = "is_valid")
     private boolean isValid;
-    @ManyToOne
-    @JoinColumn(name = "fk_owner_id")
-    private Driver driver;
+
 }

@@ -6,6 +6,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface BusRepository extends JpaRepository<Bus, Long> {
-    public Optional<List<Bus>> findAllByIsValidIsFalse();
-    public List<Bus> findAllByIsValidIsTrue();
+    Optional<List<Bus>> findAllByIsValidIsFalse();
+   List<Bus> findAllByIsValidIsTrue();
 }

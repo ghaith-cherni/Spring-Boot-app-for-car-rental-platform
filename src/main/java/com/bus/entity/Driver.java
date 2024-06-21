@@ -49,5 +49,5 @@ public class Driver {
     @Enumerated(EnumType.STRING)
     private Role role = Role.DRIVER;
     @OneToMany(mappedBy = "driver", cascade = CascadeType.ALL)
-    private List<Reservation> reservations = new ArrayList<>();
+    private List<Reservation> reservations ;
 }

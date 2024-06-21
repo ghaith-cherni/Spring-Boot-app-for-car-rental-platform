@@ -15,9 +15,10 @@ import java.time.ZonedDateTime;
 public class ReservationRequest {
 
     private Long client_id;
+    private Long bus_id ;
+    private Long driver_id;
     private String CIN;
     private String busType ;
-    private Long bus_id ;
     private ZonedDateTime dateDepart  ;
     private ZonedDateTime dateRetour   ;
     private String lieuDepart ;
