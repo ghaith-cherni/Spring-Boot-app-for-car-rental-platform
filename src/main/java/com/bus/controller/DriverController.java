@@ -13,12 +13,12 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("/locaBus/drivers")
+@RequestMapping("/ADMIN/locaBus/drivers")
 public class DriverController {
     @Autowired
     public DriverService driverService;
 
-    @GetMapping(value = "/public/allDrivers")
+    @GetMapping(value = "/allDrivers")
     public ResponseEntity<List<Driver>> getAllDrivers() {
         List<Driver> allDrivers = driverService.getAllDrivers();
         return ResponseEntity.ok().body(allDrivers);

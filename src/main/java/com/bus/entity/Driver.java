@@ -1,15 +1,17 @@
 package com.bus.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+//@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -48,6 +50,7 @@ public class Driver {
     private String username;
     @Enumerated(EnumType.STRING)
     private Role role = Role.DRIVER;
-    @OneToMany(mappedBy = "driver", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "driver",fetch = FetchType.LAZY)
+    @JsonBackReference
     private List<Reservation> reservations ;
 }

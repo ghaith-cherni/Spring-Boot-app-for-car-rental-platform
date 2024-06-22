@@ -1,5 +1,4 @@
 package com.bus;
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -19,7 +18,7 @@ import java.util.List;
 @Component
 public class JwtTokenProvider {
 
-    private final String secretKey="secret key" ;
+    private final String secretKey = "secret key";
     private final long validityInMilliseconds = 3600000; // 1h
 
     @Autowired
@@ -30,7 +29,7 @@ public class JwtTokenProvider {
 //        System.out.println("Secret Key: " + this.secretKey);
 //    }
 
-    public String createToken(String username, List<String> roles) {
+    public String createToken(String username, List<String> roles  ) {      //  TODO   add , Long userId
         Claims claims = Jwts.claims().setSubject(username);
         claims.put("roles", roles);
 
@@ -45,14 +44,15 @@ public class JwtTokenProvider {
                 .compact();
     }
 
+    public String getUsername(String token) {
+        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
+    }
+
     public Authentication getAuthentication(String token) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(getUsername(token));
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
-    public String getUsername(String token) {
-        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
-    }
 
     public boolean validateToken(String token) {
         try {

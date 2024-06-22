@@ -6,10 +6,7 @@ import jakarta.persistence.Cacheable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,17 +16,21 @@ import java.util.List;
 public class ClientController {
     @Autowired
     public ClientService clientService;
-    @GetMapping(value = "/public/allClients")
+    @GetMapping(value = "/allClients")
     public ResponseEntity<List<Client>> getAllClients(){
         List<Client> allClients =clientService.getAllClients();
         return ResponseEntity.ok().body(allClients);
     }
-    @GetMapping (value = "/public/clientById/{id}")
+    @GetMapping (value = "/clientById/{id}")
     @PreAuthorize("hasRole('CLIENT')")
     public ResponseEntity<Client> getClientById(Long id){
         Client client =clientService.getClientById(id);
         return ResponseEntity.ok().body(client);
     }
 
-
+    @PostMapping(value = "/deleteClients/{id}")
+    public ResponseEntity<String> deleteClient(Long id){
+       //clientService.deleteClient(id);
+        return ResponseEntity.ok().body("client supprimé");
+    }
 }

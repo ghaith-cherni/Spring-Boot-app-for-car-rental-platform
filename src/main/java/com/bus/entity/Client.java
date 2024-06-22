@@ -1,14 +1,16 @@
 package com.bus.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.ZonedDateTime;
 import java.util.List;
 
-@Data
+//@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -53,6 +55,7 @@ public class Client {
     private String matricule_fiscale;
     @Enumerated(EnumType.STRING)
     private Role role = Role.CLIENT;
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
+   // @JsonBackReference
     private List<Reservation> reservations;
 }
