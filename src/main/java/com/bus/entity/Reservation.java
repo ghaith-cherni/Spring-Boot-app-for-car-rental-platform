@@ -34,12 +34,13 @@ public class Reservation {
     private String paymentMethod;
     @Column(name = "payment_status")
     private String paymentStatus;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "driver_id")
-    private Driver driver;
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "client_id", nullable = false)
    // @JsonBackReference
+    private Driver driver;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "client_id", nullable = false)
+   // @JsonManagedReference
     private Client client;
     @ManyToOne
     @JoinColumn(name = "bus_id")

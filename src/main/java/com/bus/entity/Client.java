@@ -56,6 +56,6 @@ public class Client {
     @Enumerated(EnumType.STRING)
     private Role role = Role.CLIENT;
     @OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
-   // @JsonBackReference
+  //  @JsonManagedReference
     private List<Reservation> reservations;
 }

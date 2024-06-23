@@ -27,8 +27,8 @@ public class Bus {
     private String busType;
     @Column(name = "bus_condition")
     private String busCondition;
-    @Column(name = "price_one_day")
-    private int priceOneDay;
+    @Column(name = "price_for_km")
+    private int priceForKm;
     @Column(name = "is_valid")
     private boolean isValid;
 

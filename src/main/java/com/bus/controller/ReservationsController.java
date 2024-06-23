@@ -1,5 +1,7 @@
 package com.bus.controller;
 
+import com.bus.DTO.ReservationDTO;
+import com.bus.DTO.ReservationUpdateDTO;
 import com.bus.entity.Client;
 import com.bus.entity.Reservation;
 import com.bus.request.ReservationRequest;
@@ -19,9 +21,9 @@ public class ReservationsController {
     public ReservationService reservationService;
 
     @GetMapping("/allReservations")
-    public ResponseEntity<List<Reservation>> getAllReservations() {
-        List<Reservation> allReservations = reservationService.getAllReservations();
-        return ResponseEntity.ok(allReservations);
+    public ResponseEntity<List<ReservationDTO>> getAllReservations() {
+        List<ReservationDTO> reservations = reservationService.getAllReservations();
+        return ResponseEntity.ok(reservations);
     }
 
     @PostMapping("/addReservations")
@@ -30,18 +32,35 @@ public class ReservationsController {
         return ResponseEntity.ok().body("Reservation made");
     }
 
+    @GetMapping("/Reservation/{id}")        //get reservation by reservation id
+    public ResponseEntity<ReservationDTO> getReservationById(@PathVariable Long id) {
+        ReservationDTO reservation = reservationService.getReservationById(id);
+        return ResponseEntity.ok(reservation);
+    }
+
+    @GetMapping("/ReservationByClientId/{id}")
+    public ResponseEntity<List<ReservationDTO>> getReservationsByClientId(@PathVariable Long id) {
+        List<ReservationDTO> reservations = reservationService.getReservationsByClientId(id);
+        return ResponseEntity.ok(reservations);
+    }
 
 
-//    @GetMapping("/Reservation{Rid}") // get reservation by id for admin
+    @PutMapping("/updateReservation")      // for Admin
+    public ResponseEntity<ReservationDTO> updateReservation(@RequestBody ReservationUpdateDTO reservationUpdateDTO) {
+        ReservationDTO updatedReservation = reservationService.updateReservation(reservationUpdateDTO);
+        return ResponseEntity.ok(updatedReservation);
+    }
+
+
+
+
+
+//    @GetMapping("/Reservation/{Rid}") // get reservation by id for admin
 //    public ResponseEntity<Reservation> getReservation4admin(@RequestBody String Rid) {
 //        Reservation reservation = ReservationService.getReservation(Rid);
 //        return ResponseEntity.ok().body(reservation);
 //    }
-//    @PutMapping("/Reservation/{Rid}")  // update reservation for admin
-//    public ResponseEntity<Reservation> updateReservation4admin(@RequestBody String Rid) {
-//        Reservation reservation = ReservationService.getReservation(Rid);
-//        return ResponseEntity.ok().body(reservation);
-//    }
+
 //    @GetMapping("/Reservation{Rid}") // get reservation by id for client
 //    public ResponseEntity<ReservationResponse> getReservation4client(@RequestBody String Rid) {
 //        ReservationResponse reservation = ReservationService.getReservation(Rid);
