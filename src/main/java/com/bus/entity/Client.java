@@ -1,6 +1,7 @@
 package com.bus.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -15,6 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "client")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,6 +58,6 @@ public class Client {
     @Enumerated(EnumType.STRING)
     private Role role = Role.CLIENT;
     @OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
-  //  @JsonManagedReference
+    @JsonManagedReference
     private List<Reservation> reservations;
 }

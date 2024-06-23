@@ -1,5 +1,6 @@
 package com.bus.controller;
 
+import com.bus.DTO.ClientDTO4ClientListAPI;
 import com.bus.entity.Client;
 import com.bus.service.ClientService;
 import jakarta.persistence.Cacheable;
@@ -16,11 +17,19 @@ import java.util.List;
 public class ClientController {
     @Autowired
     public ClientService clientService;
-    @GetMapping(value = "/allClients")
-    public ResponseEntity<List<Client>> getAllClients(){
-        List<Client> allClients =clientService.getAllClients();
+    
+//    @GetMapping(value = "/allClients")
+//    public ResponseEntity<List<Client>> getAllClients(){
+//        List<Client> allClients =clientService.getAllClients();
+//        return ResponseEntity.ok().body(allClients);
+//    }
+
+        @GetMapping(value = "/allClients")
+    public ResponseEntity<List<ClientDTO4ClientListAPI>> getAllClients(){
+        List<ClientDTO4ClientListAPI> allClients =clientService.getAllClient();
         return ResponseEntity.ok().body(allClients);
     }
+
     @GetMapping (value = "/clientById/{id}")
     @PreAuthorize("hasRole('CLIENT')")
     public ResponseEntity<Client> getClientById(Long id){
