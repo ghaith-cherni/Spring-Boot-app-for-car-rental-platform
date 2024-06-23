@@ -29,7 +29,6 @@ public class BusController {
 
     @PostMapping("/addBus")
     public ResponseEntity<String> addBus(@RequestBody Bus bus) {
-        System.out.println("Received reservation request: " + bus);
         busService.addBus(bus);
         return ResponseEntity.ok().body("Bus added successfully");
     }

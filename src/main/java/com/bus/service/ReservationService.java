@@ -155,37 +155,65 @@ public class ReservationService {
                     .orElseThrow(() -> new IllegalArgumentException("Bus not found"));
             reservation.setBus(bus);
         }
-
         if (reservationUpdateDTO.getDriverId() != null) {
             Driver driver = driverRepository.findById(reservationUpdateDTO.getDriverId())
                     .orElseThrow(() -> new IllegalArgumentException("Driver not found"));
             reservation.setDriver(driver);
         }
-
         if (reservationUpdateDTO.getTotalPrice() != null) {
             reservation.setTotalPrice(reservationUpdateDTO.getTotalPrice());
         }
-
         if (reservationUpdateDTO.getStartDate() != null) {
             reservation.setStartDate(reservationUpdateDTO.getStartDate());
         }
-
         if (reservationUpdateDTO.getEndDate() != null) {
             reservation.setEndDate(reservationUpdateDTO.getEndDate());
         }
-
         if (reservationUpdateDTO.getIsVerified() != null) {
             reservation.setVerified(reservationUpdateDTO.getIsVerified());
         }
-
         Reservation updatedReservation = reservationRepository.save(reservation);
         return convertToDto(updatedReservation);
     }
 
-//    private ReservationDTO convertToDto(Reservation reservation) {
-//        // Your existing conversion logic here
-//    }
+    public List<ReservationDTO> getReservationsByDriverId(Long driverId) {
+        List<Reservation> reservations = reservationRepository.findByDriverId(driverId);
+        return reservations.stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
+    }
 
+    // Method to fetch reservation details and available buses
+    public ReservationDetailsDTO getReservationDetailsWithAvailableBuses(Long reservationId) {
+        Reservation reservation = reservationRepository.findById(reservationId)
+                .orElseThrow(() -> new ResourceNotFoundException("Reservation not found"));
 
+        ZonedDateTime startDate = reservation.getStartDate();
+        ZonedDateTime endDate = reservation.getEndDate();
+
+        List<Bus> availableBuses = busRepository.findAvailableBuses(startDate, endDate);
+
+        // Convert entities to DTOs as needed
+        ReservationDTO reservationDTO = convertToDto(reservation);
+        List<BusDTO> availableBusDTOs = availableBuses.stream()
+                .map(this::convertBusToDto)
+                .collect(Collectors.toList());
+
+        // Create and return a DTO containing reservation details and available buses
+        return new ReservationDetailsDTO(reservationDTO, availableBusDTOs);
+    }
+
+    private BusDTO convertBusToDto(Bus bus) {
+        if (bus == null) {
+            return null;
+        }
+        BusDTO busDTO = new BusDTO();
+        busDTO.setId(bus.getId());
+        busDTO.setType(bus.getBusType());
+        busDTO.setNumPlate(bus.getNumPlate());
+        return busDTO;
+    }
 
 }
+
+

@@ -1,6 +1,7 @@
 package com.bus.controller;
 
 import com.bus.DTO.ReservationDTO;
+import com.bus.DTO.ReservationDetailsDTO;
 import com.bus.DTO.ReservationUpdateDTO;
 import com.bus.entity.Client;
 import com.bus.entity.Reservation;
@@ -9,6 +10,7 @@ import com.bus.request.ReservationResponse;
 import com.bus.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,18 +29,21 @@ public class ReservationsController {
     }
 
     @PostMapping("/addReservations")
+    @PreAuthorize("hasRole('CLIENT')")
     public ResponseEntity<String> makeReservation(@RequestBody ReservationRequest reservation) {
         reservationService.addReservation(reservation);
         return ResponseEntity.ok().body("Reservation made");
     }
 
     @GetMapping("/Reservation/{id}")        //get reservation by reservation id
+    @PreAuthorize("hasRole('CLIENT')")
     public ResponseEntity<ReservationDTO> getReservationById(@PathVariable Long id) {
         ReservationDTO reservation = reservationService.getReservationById(id);
         return ResponseEntity.ok(reservation);
     }
 
-    @GetMapping("/ReservationByClientId/{id}")
+    @GetMapping("/ReservationsByClientId/{id}")
+    @PreAuthorize("hasRole('CLIENT')")
     public ResponseEntity<List<ReservationDTO>> getReservationsByClientId(@PathVariable Long id) {
         List<ReservationDTO> reservations = reservationService.getReservationsByClientId(id);
         return ResponseEntity.ok(reservations);
@@ -51,9 +56,17 @@ public class ReservationsController {
         return ResponseEntity.ok(updatedReservation);
     }
 
+    @GetMapping("/reservationsByDriver/{id}")
+    public ResponseEntity<List<ReservationDTO>> getReservationsByDriverId(@PathVariable Long id) {
+        List<ReservationDTO> reservations = reservationService.getReservationsByDriverId(id);
+        return ResponseEntity.ok(reservations);
+    }
 
-
-
+    @GetMapping("/availableBusesByReservationId/{reservationId}")
+    public ResponseEntity<ReservationDetailsDTO> getReservationDetailsWithAvailableBuses(@PathVariable Long reservationId) {
+        ReservationDetailsDTO reservationDetails = reservationService.getReservationDetailsWithAvailableBuses(reservationId);
+        return ResponseEntity.ok(reservationDetails);
+    }
 
 //    @GetMapping("/Reservation/{Rid}") // get reservation by id for admin
 //    public ResponseEntity<Reservation> getReservation4admin(@RequestBody String Rid) {
