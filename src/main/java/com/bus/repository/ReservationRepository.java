@@ -2,6 +2,9 @@ package com.bus.repository;
 import com.bus.entity.Reservation;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ReservationRepository extends JpaRepository<Reservation, Long> {
+import java.util.List;
 
+public interface ReservationRepository extends JpaRepository<Reservation, Long> {
+    List<Reservation> findByClientId(Long clientId);
+    List<Reservation> findByDriverId(Long driverId);
 }

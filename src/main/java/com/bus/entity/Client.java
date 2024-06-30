@@ -1,52 +1,63 @@
 package com.bus.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.ZonedDateTime;
 import java.util.List;
 
-@Data
+//@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "client")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "createdAt")
+    @Column(name = "created_at")
     private ZonedDateTime createdAt;
     @Column(name = "birthdate")
-    private ZonedDateTime  birthdate;
+    private ZonedDateTime birthdate;
     @Column(name = "newsletter")
     private Boolean newsletter;
     @Column(name = "verified")
     private Boolean verified;
-    @Column(name = "firstName")
+    @Column(name = "first_name")
     private String firstName;
-    @Column(name = "lastName")
+    @Column(name = "last_name")
     private String lastName;
     @Column(name = "email")
     private String email;
-    @Column(name = "phoneNumber")
+    @Column(name = "phone_number")
     private String phoneNumber;
     @Column(name = "city")
-    private String  city;
+    private String city;
     @Column(name = "gender")
-    private String  gender;
-    @Column(name = "profilePicture")
-    private String  profilePicture;
-    @Column(name = "authenticationMethod")
-    private String  authenticationMethod;
+    private String gender;
+    @Column(name = "profile_picture")
+    private String profilePicture;
+    @Column(name = "authentication_method")
+    private String authenticationMethod;
     @Column(name = "status")
-    private String  status;
+    private String status;
     @Column(name = "password")
     private String password;
+    @Column(name = "username")
+    private String username;
+    @Column(name = "category")
+    private String category;
+    @Column(name = "matricule_fiscale")
+    private String matricule_fiscale;
     @Enumerated(EnumType.STRING)
     private Role role = Role.CLIENT;
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<Reservation> reservations;
 }
